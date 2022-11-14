@@ -1,5 +1,5 @@
 #![allow(dead_code)]
-
+#![allow(unused_variables)]
 extern crate rand;
 
 use std::io;
@@ -9,7 +9,52 @@ use rand::{Rng, thread_rng};
 fn main() {
     // run_guessing_game();
     // run_variable();
-    run_data_type();
+    // run_data_type();
+    // run_function();
+    run_if();
+}
+
+fn run_if() {
+    let num = 10;
+    if num == 10 {
+        println!("if");
+    }
+
+    let result = if num == 10 {
+        20
+    } else {
+        300
+    };
+
+    println!("{}", result);
+
+    loop {
+        println!("loop");
+        break;
+    }
+
+    let mut count = 0;
+
+    while count < 5 {
+        println!("count: {}", count);
+        count = count + 1;
+    }
+
+    for num in [1,2,3,4].iter() {
+        println!("for: {}", num);
+    }
+
+    for num in (1..4).by_ref() {
+        println!("range: {}", num);
+    }
+}
+
+fn run_function() {
+    test_a(10, 10.1);
+}
+
+fn test_a(a: i32, b: f32) {
+    println!("{}, {}", a, b);
 }
 
 fn run_data_type() {
@@ -23,6 +68,19 @@ fn run_data_type() {
     let i_size: isize = -100;
     let u_size: usize = 100;
     println!("{}, {}, {}", scalar, i_size, u_size);
+
+    let t = true;
+    let g:bool = false;
+    let z = 'z';
+    let emoji = '😀';
+    let tup: (i32, f64, bool) = (1, 2.2, false);
+    let (a, b, c) = tup;
+    let i = tup.0;
+    let f = tup.1;
+    let b = tup.2;
+    let nums = [1, 2, 3, 4];
+    // let pick_num = nums[5]; // 잘못된 색인 접근은 메모리에 접근하지 않음
+
 }
 
 fn run_variable() {
