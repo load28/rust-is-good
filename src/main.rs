@@ -11,8 +11,77 @@ fn main() {
     // run_variable();
     // run_data_type();
     // run_function();
-    run_if();
+    // run_if();
+    // rectangle();
+    run_enum();
 }
+
+struct User {
+    username: String,
+    email: String,
+    sign_in_count: u64,
+    active: bool,
+}
+
+fn struct_fn() {
+    let mut user1 = User {
+        email: String::from("tjalsdud89@naver.com"),
+        username: String::from("tjalsdud89"),
+        active: true,
+        sign_in_count: 1,
+    };
+
+    user1.email = String::from("updated");
+}
+
+fn build_user(email: String, username: String) -> User {
+    User {
+        email,
+        username,
+        active: true,
+        sign_in_count: 1,
+    }
+}
+
+fn struct_update(email: String, username: String) -> User {
+    let origin_data = build_user(String::from("origin"), String::from("origin"));
+
+     User {
+        email,
+        username,
+        ..origin_data
+    }
+}
+
+fn tuple_struct() {
+    struct Color(i32, i32, i32);
+    struct Point(i32, i32, i32);
+
+    let black = Color(123, 2, 0);
+    let origin = Point(0, 0, 0);
+}
+
+#[derive(Debug)]
+struct Rectangle {
+    width: u32,
+    height: u32,
+}
+
+fn rectangle() {
+    let rect1 = Rectangle {
+        width: 30,
+        height: 50,
+    };
+
+    println!("{}", area(&rect1));
+    let rect2 = Rectangle {width: 10, height: 40};
+    println!("{:#?}", rect2);
+}
+
+fn area(rect: &Rectangle) -> u32 {
+    rect.height * rect.width
+}
+
 
 fn run_if() {
     let num = 10;
@@ -139,3 +208,53 @@ fn run_guessing_game() {
         }
     }
 }
+
+enum Admin {
+    Super,
+    User,
+}
+
+enum UserTier {
+    Free,
+    Advance,
+}
+
+enum Guest {
+    Free,
+    Advance,
+}
+
+enum UserType {
+    Admin(Admin),
+    User(UserTier),
+    Guest(Guest),
+}
+
+fn run_enum() {
+    let user_type = UserType::Admin(Admin::Super);
+
+    match user_type {
+        UserType::Admin(Admin::Super) => println!("admin super"),
+        UserType::Admin(Admin::User) => println!("admin user"),
+        UserType::User(UserTier::Free) => println!("user free"),
+        UserType::User(UserTier::Advance) => println!("user advance"),
+        UserType::Guest(Guest::Free) => println!("guest free"),
+        UserType::Guest(Guest::Advance) => println!("guest advance"),
+    }
+
+    // 장난 아닌걸로 판명되었습니다...
+    let user_type = UserType::User(UserTier::Advance);
+    let option_value : Option<String>= get_option(20);
+    let option_value: String = option_value.unwrap_or("error value".to_string());
+    println!("option value - {}", option_value);
+}
+
+fn get_option(i: i32) -> Option<String> {
+    match i {
+        1 => Some("1".to_string()),
+        2 => Some("2".to_string()),
+        _ => None,
+    }
+}
+
+
